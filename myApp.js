@@ -8,6 +8,12 @@ app.get("/", (req, res) => {
 
 app.use(express.static(__dirname + "/public"));
 
+app.get("/json", (req, res)=> {
+  res.json({
+    message: "Hello json"
+  });
+});
+
 // --> 7)  Mount the Logger middleware here
 
 // --> 11)  Mount the body-parser middleware  here
