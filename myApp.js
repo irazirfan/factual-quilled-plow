@@ -53,16 +53,10 @@ app.get("/name", (req, res) => {
 });
 
 app.post("/name", (req, res) => {
-  var string = req.body.first+ " " + req.body.last;
+  var string = req.body.first + " " + req.body.last;
   res.json({
     name: string
   });
 });
-
-// This would be part of the basic setup of an Express app
-// but to allow FCC to run tests, the server is already active
-/** app.listen(process.env.PORT || 3000 ); */
-
-//---------- DO NOT EDIT BELOW THIS LINE --------------------
 
 module.exports = app;
