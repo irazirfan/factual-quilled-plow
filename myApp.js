@@ -1,7 +1,9 @@
 var express = require("express");
+var bodyParser = require("body-parser");
 var app = express();
-//console.log("Hello World");
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(function middleware(req, res, next) {
   var string = req.method + " " + req.path + " - " + req.ip;
   console.log(string);
@@ -22,12 +24,12 @@ app.get("/json", function(req, res) {
   res.json(json);
 });
 
-const middleware = (req, res, next)=> {
+const middleware = (req, res, next) => {
   req.time = new Date().toString();
   next();
 };
 
-app.get("/now", middleware, (req, res)=>{
+app.get("/now", middleware, (req, res) => {
   res.send({
     time: req.time
   });
@@ -40,20 +42,22 @@ app.get("/:word/echo", (req, res) => {
   });
 });
 
-app.get("/name", (req, res)=> {
+app.get("/name", (req, res) => {
   var firstName = req.query.first;
   var lastName = req.query.last;
-  
+
   var { first: firstName, last: lastName } = req.query;
   res.json({
     name: `${firstName} ${lastName}`
-  });  
+  });
 });
 
-/** 11) Get ready for POST Requests - the `body-parser` */
-// place it before all the routes !
-
-/** 12) Get data form POST  */
+app.post("/name", (req, res) => {
+  var string = req.body.first+ " " + req.body.last;
+  res.json({
+    name: string
+  });
+});
 
 // This would be part of the basic setup of an Express app
 // but to allow FCC to run tests, the server is already active
